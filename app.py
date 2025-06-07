@@ -1,5 +1,5 @@
 # app.py
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, redirect, flash, jsonify
 import smtplib
 import os
 from email.message import EmailMessage
@@ -8,13 +8,13 @@ import requests
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')  # Explicitly define lowercase static folder
+app.secret_key = 'your-secret-key'
 
-# Email config
 EMAIL_ADDRESS = os.getenv("EMAIL_USER")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASS")
 TO_EMAIL = os.getenv("TO_EMAIL")
-RECAPTCHA_SECRET = os.getenv("RECAPTCHA_SECRET", "6LcLwVgrAAAAAOGg3z6RBh6pZsQhYo1rK2U6EF2U")  # your secret key
+RECAPTCHA_SECRET = os.getenv("RECAPTCHA_SECRET")
 
 @app.route("/", methods=["GET"])
 def home():
@@ -22,37 +22,40 @@ def home():
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    data = request.form
-    recaptcha_response = data.get("g-recaptcha-response")
-
-    # Verify reCAPTCHA
-    verify_url = "https://www.google.com/recaptcha/api/siteverify"
-    verify_payload = {
-        "secret": RECAPTCHA_SECRET,
-        "response": recaptcha_response
-    }
-    recaptcha_result = requests.post(verify_url, data=verify_payload).json()
-
-    if not recaptcha_result.get("success"):
-        return jsonify({"success": False, "message": "reCAPTCHA validation failed."}), 400
-
     try:
-        # Extract form fields
-        first = data["firstName"]
-        last = data["lastName"]
-        email = data["email"]
-        phone = data.get("phone", "")
-        street = data["street"]
-        city = data["city"]
-        state = data["state"]
-        zip_code = data["zip"]
-        note = data["note"]
+        # reCAPTCHA validation
+        recaptcha_response = request.form.get("g-recaptcha-response")
+        if not recaptcha_response:
+            return jsonify({"success": False, "message": "reCAPTCHA is required."}), 400
+
+        verify_response = requests.post(
+            "https://www.google.com/recaptcha/api/siteverify",
+            data={
+                "secret": RECAPTCHA_SECRET,
+                "response": recaptcha_response
+            }
+        )
+
+        if not verify_response.json().get("success"):
+            return jsonify({"success": False, "message": "Failed reCAPTCHA verification."}), 400
+
+        # Form fields
+        first = request.form["firstName"]
+        last = request.form["lastName"]
+        email = request.form["email"]
+        phone = request.form.get("phone", "")
+        street = request.form["street"]
+        city = request.form["city"]
+        state = request.form["state"]
+        zip_code = request.form["zip"]
+        note = request.form["note"]
 
         # Compose email
         msg = EmailMessage()
         msg["Subject"] = "New Pool Service Estimate Request"
         msg["From"] = EMAIL_ADDRESS
         msg["To"] = TO_EMAIL
+
         msg.set_content(f"""
         New Estimate Request:
 
@@ -73,10 +76,9 @@ def submit():
             smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
             smtp.send_message(msg)
 
-        return jsonify({"success": True, "message": "Estimate request submitted successfully."})
-
+        return jsonify({"success": True})
     except Exception as e:
-        return jsonify({"success": False, "message": f"Error sending request: {str(e)}"}), 500
+        return jsonify({"success": False, "message": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)
