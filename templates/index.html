@@ -2,207 +2,171 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lagoon Pool Repair</title>
-  <link rel="icon" type="image/png" href="/Static/favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet"/>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background-image: url('/Static/background.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      color: #21417A;
-    }
-
-    header {
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #21417A;
-    }
-
-    .contact {
-      font-size: 1rem;
-    }
-
-    .container {
-      text-align: center;
-      padding: 5rem 2rem;
-      background-color: rgba(255, 255, 255, 0.85);
-      margin: 2rem auto;
-      max-width: 700px;
-      border-radius: 12px;
-    }
-
-    .about {
-      margin-bottom: 2rem;
-      font-size: 1.25rem;
-    }
-
-    .estimate-btn {
-      background-color: #21417A;
-      color: white;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .estimate-btn:hover {
-      background-color: #1a3361;
-    }
-
-    #estimate-modal {
-      display: none;
-      position: fixed;
-      z-index: 10;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 100vh;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.6);
-    }
-
-    .modal-content {
-      background-color: white;
-      margin: 5% auto;
-      padding: 20px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 600px;
-      position: relative;
-    }
-
-    .modal-logo {
-      width: 100%;
-      max-height: 120px;
-      object-fit: contain;
-      margin-bottom: 10px;
-    }
-
-    .close {
-      color: #aaa;
-      position: absolute;
-      right: 20px;
-      top: 10px;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .close:hover {
-      color: black;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    input, textarea {
-      padding: 10px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    .submit-btn {
-      background-color: #21417A;
-      color: white;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    .submit-btn:hover {
-      background-color: #1a3361;
-    }
-
-    .success-message {
-      font-size: 1.5rem;
-      color: #21417A;
-      text-align: center;
-      margin-top: 1rem;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="logo">Lagoon Pool Repair</div>
-    <div class="contact">
-      Call/Text: <strong>(321) 123-4567</strong><br/>
-      Serving Brevard County
-    </div>
-  </header>
-
-  <div class="container">
-    <div class="about">
-      Lagoon Pool Repair is your local, owner-operated solution for fast and honest pool system repairs. We specialize in pumps, plumbing, heaters, wiring, lights, filters, jets, automation switches and more. Available 24/7 in Brevard County!
-    </div>
-    <button class="estimate-btn" onclick="openModal()">Request Free Estimate</button>
-  </div>
-
-  <div id="estimate-modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <img src="/Static/lagoonlogorequest.png" class="modal-logo" alt="Lagoon Logo">
-      <h2 style="text-align: left;">Free Estimate Request</h2>
-      <form id="estimate-form">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
-        <input type="tel" name="phone" placeholder="Your Phone Number" required>
-        <textarea name="message" rows="4" placeholder="Describe your pool issue..." required></textarea>
-        <div class="g-recaptcha" data-sitekey="6LcLwVgrAAAAAJ-o2Sa_IwoLqixLTXqSwZZcLv3I"></div>
-        <button type="submit" class="submit-btn">Submit Request</button>
-        <div class="success-message" id="success-message" style="display: none;">Your request was sent.</div>
-      </form>
-    </div>
-  </div>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lagoon Pool Repair - Brevard County</title>
+  <meta name="description" content="Lagoon Pool Repair provides professional, reliable pool service and equipment repair in Brevard County, FL. Local, owner-operated and available 24/7." />
+  <meta name="keywords" content="pool repair Brevard County, pool maintenance Brevard County, pool service, Lagoon Pool Repair, pool pump, pool electronics, pool plumbing, pool system, pool filters, pool heater, pool jets, pool switch, pool wiring, pool electric, pool lights, swimming pool maintenance, pump repair, Florida pools">
+  <link rel="icon" type="image/png" href="/static/favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body class="bg-cover bg-center bg-no-repeat text-white" style="background-image: url('/static/background.png');">
+  <div class="bg-black bg-opacity-50 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="py-3 px-6 flex justify-between items-center sticky top-0 z-50 shadow-sm" style="background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(6px); color: #21417A;">
+      <div class="flex items-center space-x-3">
+        <img src="{{ url_for('static', filename='lagoonlogo.png') }}" alt="Lagoon Pool Repair Logo" class="h-24 w-auto rounded" />
+      </div>
+      <div class="flex-1 text-center">
+        <p class="text-3xl font-bold tracking-widest max-w-3xl mx-auto" style="color: #21417A;">Professional &bull; Reliable &bull; Local</p>
+      </div>
+      <div class="text-right text-lg font-medium" style="color: #21417A;">
+        <p>Call: <a href="tel:3212582332" class="underline" style="color: #21417A;">(321) 258-2332</a></p>
+        <p>Email: <a href="mailto:lagoonpoolrepair@gmail.com" class="underline" style="color: #21417A;">lagoonpoolrepair@gmail.com</a></p>
+      </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="px-6 py-8 max-w-4xl mx-auto text-white">
+      <h2 class="text-3xl font-bold mb-4">About Us</h2>
+      <p class="text-xl leading-relaxed">
+        At Lagoon Pool Repair, we're proud to serve Brevard County with honest, reliable pool service and equipment repair. As a local, owner-operated business, we treat every pool like it's our own — with 24/7 availability and a commitment to doing the job right the first time.
+      </p>
+      <p class="text-xl leading-relaxed mt-4">
+        We specialize in all aspects of swimming pool maintenance, including pool pump repair, pool plumbing, pool filters, and full pool system diagnostics. Whether you're dealing with electrical issues like pool wiring, switch malfunctions, or pool lights that need replacing, we’ve got you covered. We also handle pool electronics and pool heater repair to improve your system’s efficiency year-round.
+      </p>
+      <p class="text-xl leading-relaxed mt-4">
+        From jets and switches to pump performance and system troubleshooting, we bring fast, friendly, professional service — and we’re always just a call away. That’s the Lagoon Pool Repair promise.
+      </p>
+    </section>
+
+    <!-- CTA Button -->
+    <section class="text-center my-6">
+      <button onclick="toggleModal()" class="fixed bottom-6 right-6 z-40 text-white font-bold px-5 py-3 text-base sm:static sm:relative sm:text-xl sm:px-8 sm:py-4 rounded-full transition-transform duration-300 hover:scale-105 shadow-lg" style="background-color: #21417A;">
+        Request Free Estimate
+      </button>
+    </section>
+
+    <!-- Google Map Embed -->
+    <section class="my-6 px-4 text-center">
+      <div class="mx-auto" style="width: 25%;">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d141713.64636630098!2d-80.77269142822644!3d28.296541192371333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88de11563b002e2f%3A0x9bfb99cbf7ce1251!2sBrevard%20County%2C%20FL!5e0!3m2!1sen!2sus!4v1717700000000" width="100%" height="300" style="border:0; border-radius: 1rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 px-4 py-10">
+      <div class="bg-white rounded-lg w-full max-w-2xl mx-auto shadow-xl overflow-y-auto max-h-full relative">
+        <!-- Close Button -->
+        <button onclick="toggleModal()" class="absolute top-3 right-4 text-3xl font-bold text-gray-500 hover:text-black z-50">&times;</button>
+
+        <!-- Modal Content -->
+        <div class="p-6 text-black">
+          <img src="{{ url_for('static', filename='lagoonlogorequest.png') }}" alt="Lagoon Logo" class="w-full h-32 object-contain mb-4 rounded" />
+          <h2 class="text-xl font-bold mb-4" style="color: #21417A;">Free Estimate Request</h2>
+
+          <form id="estimateForm" class="space-y-4">
+            <div class="flex flex-col sm:flex-row gap-4">
+              <input type="text" name="firstName" maxlength="30" placeholder="First Name (Required)" class="w-full p-2 border rounded" />
+              <input type="text" name="lastName" maxlength="30" placeholder="Last Name (Required)" class="w-full p-2 border rounded" />
+            </div>
+            <input type="email" name="email" placeholder="Email (Required)" class="w-full p-2 border rounded" />
+            <input type="tel" name="phone" maxlength="14" placeholder="Phone Number (Optional)" class="w-full p-2 border rounded" oninput="formatPhone(this)" />
+            <input type="text" name="street" placeholder="Street Address (Required)" class="w-full p-2 border rounded" />
+            <div class="flex flex-col sm:flex-row gap-4">
+              <input type="text" name="city" placeholder="City (Required)" class="w-full p-2 border rounded" />
+              <input type="text" name="state" pattern="[A-Za-z]+" placeholder="State (Required)" class="w-full p-2 border rounded" />
+              <input type="text" name="zip" pattern="\d{5}" maxlength="5" placeholder="ZIP Code (Required)" class="w-full p-2 border rounded" />
+            </div>
+            <textarea name="note" placeholder="Describe the issue (Required)" class="w-full p-2 border rounded h-28"></textarea>
+            <div class="g-recaptcha" data-sitekey="6LcLwVgrAAAAAJ-o2Sa_IwoLqixLTXqSwZZcLv3I"></div>
+            <div class="text-center">
+              <button type="submit" class="text-white font-bold px-5 py-3 text-base sm:text-xl sm:px-8 sm:py-4 rounded-full transition-transform duration-300 hover:scale-105 shadow-lg" style="background-color: #21417A;">
+                Submit
+              </button>
+            </div>
+          </form>
+
+          <p id="successMessage" class="flex justify-center items-center h-60 font-bold hidden text-2xl text-center" style="color: #21417A;">Your request was sent</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-sm text-white py-5 mt-auto">
+      &copy; 2025 Lagoon Pool Repair. All rights reserved.
+    </footer>
+
+    <!-- Floating Call Button -->
+    <a href="tel:3212582332" class="fixed bottom-6 left-6 sm:hidden bg-[#21417A] text-white px-4 py-3 rounded-full shadow-lg text-sm font-semibold z-50">
+      Call Now
+    </a>
+  </div>
+
+  <!-- Scripts -->
   <script>
-    function openModal() {
-      document.getElementById("estimate-modal").style.display = "block";
+    function toggleModal() {
+      const modal = document.getElementById("modal");
+      const form = document.getElementById("estimateForm");
+      const message = document.getElementById("successMessage");
+      modal.classList.toggle("hidden");
+      modal.classList.toggle("flex");
+      form.reset();
+      message.classList.add("hidden");
+      form.classList.remove("hidden");
+      Array.from(form.elements).forEach(el => {
+        el.style.setProperty("--tw-placeholder-opacity", "1");
+        el.classList.remove("placeholder-red-500");
+      });
     }
 
-    function closeModal() {
-      document.getElementById("estimate-modal").style.display = "none";
+    function formatPhone(input) {
+      let digits = input.value.replace(/\D/g, "").slice(0, 10);
+      let formatted = digits;
+      if (digits.length > 6) {
+        formatted = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+      } else if (digits.length > 3) {
+        formatted = `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+      } else if (digits.length > 0) {
+        formatted = `(${digits}`;
+      }
+      input.value = formatted;
     }
 
-    document.getElementById("estimate-form").addEventListener("submit", async function(e) {
+    document.getElementById("estimateForm").addEventListener("submit", async function (e) {
       e.preventDefault();
       const form = e.target;
-      const data = new FormData(form);
-      const response = await fetch("/send-email", {
-        method: "POST",
-        body: data
+      let valid = true;
+
+      Array.from(form.elements).forEach(el => {
+        if (el.name && el.name !== "phone" && !el.value.trim()) {
+          el.classList.add("placeholder-red-500");
+          valid = false;
+        }
       });
 
-      if (response.ok) {
-        form.reset();
-        document.getElementById("success-message").style.display = "block";
-        setTimeout(() => {
-          closeModal();
-          document.getElementById("success-message").style.display = "none";
-        }, 3000);
+      if (!valid) return;
+
+      const formData = new FormData(form);
+      const response = await fetch("/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        form.classList.add("hidden");
+        document.getElementById("successMessage").classList.remove("hidden");
       } else {
-        alert("Something went wrong. Please try again.");
+        alert(result.message || "There was an error submitting your request.");
       }
+    });
+
+    document.querySelectorAll("#estimateForm input, #estimateForm textarea").forEach(el => {
+      el.addEventListener("input", () => {
+        el.classList.remove("placeholder-red-500");
+      });
     });
   </script>
 </body>
