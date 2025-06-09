@@ -36,8 +36,14 @@ def submit():
             }
         )
 
-        if not verify_response.json().get("success"):
-            return jsonify({"success": False, "message": "Failed reCAPTCHA verification."}), 400
+        result = verify_response.json()
+        print("reCAPTCHA verification result:", result)  # Debug print
+
+        if not result.get("success"):
+            return jsonify({
+                "success": False,
+                "message": f"reCAPTCHA failed: {result.get('error-codes', 'Unknown error')}"
+            }), 400
 
         # Form fields
         first = request.form["firstName"]
