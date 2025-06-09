@@ -107,7 +107,7 @@
               <input type="text" name="zip" pattern="\d{5}" maxlength="5" placeholder="ZIP Code (Required)" class="w-full p-2 border rounded" />
             </div>
             <textarea name="note" placeholder="Describe the issue (Required)" class="w-full p-2 border rounded h-28"></textarea>
-            <div class="g-recaptcha" data-sitekey="6LcLwVgrAAAAAJ-o2Sa_IwoLqixLTXqSwZZcLv3I"></div>
+            <div class="g-recaptcha" data-sitekey="6LcLwVgrAAAAAJ-o2Sa_IwoLqixLTXqSwZZcLv3I" data-callback="onRecaptchaSuccess"></div>
             <div class="text-center">
               <button type="submit" class="text-white font-bold px-5 py-3 text-base sm:text-xl sm:px-8 sm:py-4 rounded-full transition-transform duration-300 hover:scale-105 shadow-lg" style="background-color: #21417A;">
                 Submit
@@ -155,6 +155,10 @@
         formatted = `(${digits}`;
       }
       input.value = formatted;
+    }
+
+    function onRecaptchaSuccess(token) {
+      console.log("reCAPTCHA success, token:", token);
     }
 
     document.getElementById("estimateForm").addEventListener("submit", async function (e) {
