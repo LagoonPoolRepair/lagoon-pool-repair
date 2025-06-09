@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, render_template, request, redirect, flash, jsonify
 import smtplib
 import os
@@ -8,7 +7,7 @@ import requests
 
 load_dotenv()
 
-app = Flask(__name__, static_folder='static')  # Explicitly define lowercase static folder
+app = Flask(__name__, static_folder='static')
 app.secret_key = 'your-secret-key'
 
 EMAIL_ADDRESS = os.getenv("EMAIL_USER")
@@ -23,9 +22,11 @@ def home():
 @app.route("/submit", methods=["POST"])
 def submit():
     try:
-        # reCAPTCHA validation
         recaptcha_response = request.form.get("g-recaptcha-response")
+        print("Received reCAPTCHA token:", recaptcha_response)
+
         if not recaptcha_response:
+            print("No reCAPTCHA response received.")
             return jsonify({"success": False, "message": "reCAPTCHA is required."}), 400
 
         verify_response = requests.post(
@@ -36,16 +37,11 @@ def submit():
             }
         )
 
-        result = verify_response.json()
-        print("reCAPTCHA verification result:", result)  # Debug print
+        print("Google reCAPTCHA verify response:", verify_response.json())
 
-        if not result.get("success"):
-            return jsonify({
-                "success": False,
-                "message": f"reCAPTCHA failed: {result.get('error-codes', 'Unknown error')}"
-            }), 400
+        if not verify_response.json().get("success"):
+            return jsonify({"success": False, "message": f"reCAPTCHA failed: {verify_response.json().get('error-codes', [])}"}), 400
 
-        # Form fields
         first = request.form["firstName"]
         last = request.form["lastName"]
         email = request.form["email"]
@@ -56,7 +52,6 @@ def submit():
         zip_code = request.form["zip"]
         note = request.form["note"]
 
-        # Compose email
         msg = EmailMessage()
         msg["Subject"] = "New Pool Service Estimate Request"
         msg["From"] = EMAIL_ADDRESS
@@ -77,13 +72,13 @@ def submit():
         {note}
         """)
 
-        # Send email
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
             smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
             smtp.send_message(msg)
 
         return jsonify({"success": True})
     except Exception as e:
+        print("Error during form submission:", e)
         return jsonify({"success": False, "message": str(e)}), 500
 
 if __name__ == "__main__":
