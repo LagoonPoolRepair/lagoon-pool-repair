@@ -17,14 +17,12 @@
     <header class="py-3 px-4 sm:px-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sticky top-0 z-50 shadow-sm" style="background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(6px); color: #21417A;">
       <div class="flex items-center space-x-3">
         <img src="{{ url_for('static', filename='lagoonlogo.png') }}" alt="Lagoon Pool Repair Logo" class="h-16 sm:h-24 w-auto rounded" />
-        <!-- Mobile stacked version -->
         <div class="flex flex-col sm:hidden text-left leading-tight text-sm font-bold" style="color: #21417A;">
           <span>Professional</span>
           <span>Reliable</span>
           <span>Local</span>
         </div>
       </div>
-      <!-- Desktop centered version -->
       <div class="hidden sm:block flex-1 text-center">
         <p class="text-3xl font-bold tracking-widest max-w-3xl mx-auto" style="color: #21417A;">Professional &bull; Reliable &bull; Local</p>
       </div>
@@ -43,20 +41,30 @@
       <p class="text-xl leading-relaxed mt-4">
         Whether it’s a failing pump, electrical malfunction, or plumbing issue, we bring expert knowledge and honest service to every job. Considering a salt conversion? We’re happy to answer all your questions. If your pool system needs attention, we’re here to get it back in working order. Fast, friendly, and professional service — just a call away.
       </p>
-      <p class="text-2xl font-semibold mt-6 mb-2">Services offered:</p>
-      <ul class="list-disc list-inside text-xl leading-relaxed space-y-2">
-        <li>Pool pump / motor repair & replacement</li>
-        <li>Pool lighting diagnostics & upgrades</li>
-        <li>Filtration system troubleshooting</li>
-        <li>Salt system conversion & support</li>
-        <li>Heater replacement / new heater installs</li>
-        <li>Pool automation setup & service</li>
-      </ul>
+
+      <div class="mt-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
+        <div class="flex-1">
+          <p class="text-2xl font-semibold mb-2">Services offered:</p>
+          <ul class="list-disc list-inside text-xl leading-relaxed space-y-2">
+            <li>Pool pump / motor repair & replacement</li>
+            <li>Pool lighting diagnostics & upgrades</li>
+            <li>Filtration system troubleshooting</li>
+            <li>Salt system conversion & support</li>
+            <li>Heater replacement / new heater installs</li>
+            <li>Pool automation setup & service</li>
+          </ul>
+        </div>
+        <div class="sm:mt-8">
+          <button onclick="toggleModal()" class="hidden sm:inline-block text-white font-bold px-8 py-4 text-xl rounded-full transition-transform duration-300 hover:scale-105 shadow-lg" style="background-color: #21417A;">
+            Request Free Estimate
+          </button>
+        </div>
+      </div>
     </section>
-    
-    <!-- CTA Button -->
+
+    <!-- Mobile CTA Button -->
     <section class="text-center my-6 px-4 sm:px-0 max-w-full sm:max-w-none">
-      <button onclick="toggleModal()" class="fixed bottom-6 right-6 z-40 text-white font-bold px-5 py-3 text-base sm:static sm:relative sm:text-xl sm:px-8 sm:py-4 rounded-full transition-transform duration-300 hover:scale-105 shadow-lg" style="background-color: #21417A;">
+      <button onclick="toggleModal()" class="fixed bottom-6 right-6 z-40 text-white font-bold px-5 py-3 text-base sm:hidden rounded-full transition-transform duration-300 hover:scale-105 shadow-lg" style="background-color: #21417A;">
         Request Free Estimate
       </button>
     </section>
@@ -71,14 +79,10 @@
     <!-- Modal -->
     <div id="modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 px-4 py-10">
       <div class="bg-white rounded-lg w-full max-w-2xl mx-auto shadow-xl overflow-y-auto max-h-full relative">
-        <!-- Close Button -->
         <button onclick="toggleModal()" class="absolute top-3 right-4 text-3xl font-bold text-gray-500 hover:text-black z-50">&times;</button>
-
-        <!-- Modal Content -->
         <div class="p-4 sm:p-6 text-black">
           <img src="{{ url_for('static', filename='lagoonlogorequest.png') }}" alt="Lagoon Logo" class="w-full h-32 object-contain mb-4 rounded" />
           <h2 class="text-xl font-bold mb-4" style="color: #21417A;">Free Estimate Request</h2>
-
           <form id="estimateForm" class="space-y-4">
             <div class="flex flex-col sm:flex-row gap-4">
               <input type="text" name="firstName" maxlength="30" placeholder="First Name (Required)" class="w-full p-2 border rounded" />
@@ -100,24 +104,20 @@
               </button>
             </div>
           </form>
-
           <p id="successMessage" class="flex justify-center items-center h-60 font-bold hidden text-2xl text-center" style="color: #21417A;">Your request was sent</p>
         </div>
       </div>
     </div>
 
-    <!-- Footer -->
     <footer class="text-center text-sm text-white py-6 mt-auto px-4">
       &copy; 2025 Lagoon Pool Repair. All rights reserved.
     </footer>
 
-    <!-- Floating Call Button -->
     <a href="tel:3212582332" class="fixed bottom-6 left-6 sm:hidden bg-[#21417A] text-white px-4 py-3 rounded-full shadow-lg text-sm font-semibold z-50">
       Call Now
     </a>
   </div>
 
-  <!-- Scripts -->
   <script>
     function toggleModal() {
       const modal = document.getElementById("modal");
