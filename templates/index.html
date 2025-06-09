@@ -133,17 +133,24 @@
       const modal = document.getElementById("modal");
       const form = document.getElementById("estimateForm");
       const message = document.getElementById("successMessage");
+
       modal.classList.toggle("hidden");
       modal.classList.toggle("flex");
       form.reset();
       message.classList.add("hidden");
       form.classList.remove("hidden");
+
       Array.from(form.elements).forEach(el => {
         el.style.setProperty("--tw-placeholder-opacity", "1");
         el.classList.remove("placeholder-red-500");
       });
-    }
 
+      // ✅ This is the key line we're adding
+      if (typeof grecaptcha !== "undefined") {
+        grecaptcha.reset();
+      }
+    }
+    
     function formatPhone(input) {
       let digits = input.value.replace(/\D/g, "").slice(0, 10);
       let formatted = digits;
