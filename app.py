@@ -22,7 +22,7 @@ def home():
 @app.route("/submit", methods=["POST"])
 def submit():
     try:
-        # ✅ reCAPTCHA validation
+        # reCAPTCHA validation
         recaptcha_response = request.form.get("g-recaptcha-response")
         if not recaptcha_response:
             return jsonify({"success": False, "message": "reCAPTCHA is required."}), 400
@@ -34,6 +34,7 @@ def submit():
                 "response": recaptcha_response
             }
         )
+
         result = verify_response.json()
         if not result.get("success"):
             return jsonify({
