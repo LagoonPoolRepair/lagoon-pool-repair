@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, jsonify
+from flask import Flask, render_template, request, jsonify
 import smtplib
 import os
 from email.message import EmailMessage
@@ -22,15 +22,11 @@ def home():
 @app.route("/submit", methods=["POST"])
 def submit():
     try:
-        # Get reCAPTCHA token from form
+        # reCAPTCHA validation
         recaptcha_response = request.form.get("g-recaptcha-response")
-        print("g-recaptcha-response token:", recaptcha_response)
-        print("Request headers:", dict(request.headers))
-
         if not recaptcha_response:
             return jsonify({"success": False, "message": "reCAPTCHA is required."}), 400
 
-        # Verify with Google
         verify_response = requests.post(
             "https://www.google.com/recaptcha/api/siteverify",
             data={
@@ -38,9 +34,8 @@ def submit():
                 "response": recaptcha_response
             }
         )
-        result = verify_response.json()
-        print("reCAPTCHA verification result:", result)
 
+        result = verify_response.json()
         if not result.get("success"):
             return jsonify({
                 "success": False,
