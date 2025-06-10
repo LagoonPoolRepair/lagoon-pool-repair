@@ -1,17 +1,19 @@
-from flask import Flask, render_template, request, redirect, flash, jsonify
+from flask import Flask, render_template, request, jsonify
 import smtplib
 import os
 from email.message import EmailMessage
 from dotenv import load_dotenv
+import requests
 
 load_dotenv()
 
-app = Flask(__name__, static_folder='static')  # Explicitly define lowercase static folder
+app = Flask(__name__, static_folder='static')
 app.secret_key = 'your-secret-key'
 
 EMAIL_ADDRESS = os.getenv("EMAIL_USER")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASS")
 TO_EMAIL = os.getenv("TO_EMAIL")
+RECAPTCHA_SECRET = os.getenv("RECAPTCHA_SECRET")
 
 @app.route("/", methods=["GET"])
 def home():
@@ -20,6 +22,25 @@ def home():
 @app.route("/submit", methods=["POST"])
 def submit():
     try:
+        # ✅ reCAPTCHA validation
+        recaptcha_response = request.form.get("g-recaptcha-response")
+        if not recaptcha_response:
+            return jsonify({"success": False, "message": "reCAPTCHA is required."}), 400
+
+        verify_response = requests.post(
+            "https://www.google.com/recaptcha/api/siteverify",
+            data={
+                "secret": RECAPTCHA_SECRET,
+                "response": recaptcha_response
+            }
+        )
+        result = verify_response.json()
+        if not result.get("success"):
+            return jsonify({
+                "success": False,
+                "message": f"reCAPTCHA failed: {result.get('error-codes', 'Unknown error')}"
+            }), 400
+
         # Form fields
         first = request.form["firstName"]
         last = request.form["lastName"]
